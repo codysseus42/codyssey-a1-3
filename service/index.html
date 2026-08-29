@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>여행 플래너</title></head>
+<body>
+  <h1>배포 확인</h1>
+  <button id="btn">API 호출</button>
+  <pre id="out"></pre>
+  <script>
+    document.getElementById('btn').onclick = async () => {
+      const r = await fetch('/api/hello');
+      document.getElementById('out').textContent = await r.text();
+    };
+  </script>
+</body>
+</html>
