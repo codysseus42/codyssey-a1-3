@@ -5,12 +5,6 @@ CITIES = {
         "lDongSignguCd": "150",
         "addr_prefix": "강원특별자치도 강릉시",
     },
-    "jeonju": {
-        "name": "전주",
-        "lDongRegnCd": "52",
-        "lDongSignguCd": "110",
-        "addr_prefix": "전북특별자치도 전주시",
-    },
     "gyeongju": {
         "name": "경주",
         "lDongRegnCd": "47",

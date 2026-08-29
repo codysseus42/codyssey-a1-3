@@ -5,29 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>나만의 국내여행 플래너</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
-  <header class="topnav">
-    <a class="brand" href="index.html">나만의 국내여행 플래너</a>
-    <nav>
-      <a href="index.html" aria-current="page">소개</a>
-      <a href="plan.html">계획 만들기</a>
-      <a href="list.html">내 여행 계획</a>
+  <img class="bg-decoration bg-decoration-left" src="images/hero1.png" alt=""
+    width="2544" height="1904" loading="lazy">
+  <img class="bg-decoration bg-decoration-right" src="images/hero2.png" alt=""
+    width="2544" height="1904" loading="lazy">
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="images/logo.png" alt="" width="2048" height="2048" loading="lazy">
+      나만의 국내여행 플래너
+    </a>
+    <button id="theme-toggle" type="button" class="nav-btn">배색 전환</button>
+    <button id="menu-toggle" type="button" class="nav-btn"
+      aria-expanded="false" aria-controls="mobile-menu">메뉴</button>
+    <nav class="topnav-links">
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
     </nav>
   </header>
 
+  <nav id="mobile-menu" class="mobile-menu" hidden>
+    <a class="nav-link" href="index.html">소개</a>
+    <a class="nav-link" href="plan.html">계획 만들기</a>
+    <a class="nav-link" href="list.html">내 여행 계획</a>
+  </nav>
+
   <div class="layout">
     <aside class="sidenav">
-      <a href="index.html" aria-current="page">소개</a>
-      <a href="plan.html">계획 만들기</a>
-      <a href="list.html">내 여행 계획</a>
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
     </aside>
 
     <main>
       <section class="hero">
-        <h1>나만의 국내여행 플래너</h1>
-        <p>동행자의 상황에 맞춰 AI가 국내 여행 계획 초안을 만들어 드립니다.</p>
-        <a class="btn" href="plan.html">시작하기</a>
+        <div class="hero-content">
+          <h1>나만의 국내여행 플래너</h1>
+          <p>동행자의 상황에 맞춰 AI가 국내 여행 계획 초안을 만들어 드립니다.</p>
+          <a class="btn" href="plan.html">시작하기</a>
+        </div>
+        <img class="hero-logo" src="images/logo.png" alt="" width="2048" height="2048" loading="lazy">
       </section>
 
       <section class="intro">
@@ -66,7 +87,7 @@
         <h2>사용 방법</h2>
         <ol>
           <li>상단 메뉴에서 "계획 만들기"로 이동합니다.</li>
-          <li>여행할 도시를 다섯 곳 중 하나 선택합니다.</li>
+          <li>여행할 도시를 네 곳 중 하나 선택합니다.</li>
           <li>함께 가는 분이나 원하는 여행 스타일 등 희망사항을 적습니다.</li>
           <li>생성 버튼을 누르면 AI가 후보 장소 중 어울리는 곳을 골라 일정을 만들어 줍니다.</li>
           <li>각 장소의 이름·분류·주소·선정 이유와, 있다면 사진과 지도 링크까지 함께 확인할 수 있습니다.</li>
@@ -74,9 +95,10 @@
         </ol>
         <p class="note">하루에 만들 수 있는 계획 횟수에는 제한이 있습니다.</p>
       </section>
-
-      <a class="btn" href="plan.html">시작하기</a>
+      
     </main>
   </div>
+
+  <script src="js/nav.js"></script>
 </body>
 </html>

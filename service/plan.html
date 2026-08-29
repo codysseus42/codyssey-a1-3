@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>계획 만들기 — 나만의 국내여행 플래너</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+  <img class="bg-decoration bg-decoration-left" src="images/hero1.png" alt=""
+    width="2544" height="1904" loading="lazy">
+  <img class="bg-decoration bg-decoration-right" src="images/hero2.png" alt=""
+    width="2544" height="1904" loading="lazy">
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="images/logo.png" alt="" width="2048" height="2048" loading="lazy">
+      나만의 국내여행 플래너
+    </a>
+    <button id="theme-toggle" type="button" class="nav-btn">배색 전환</button>
+    <button id="menu-toggle" type="button" class="nav-btn"
+      aria-expanded="false" aria-controls="mobile-menu">메뉴</button>
+    <nav class="topnav-links">
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
+    </nav>
+  </header>
+
+  <nav id="mobile-menu" class="mobile-menu" hidden>
+    <a class="nav-link" href="index.html">소개</a>
+    <a class="nav-link" href="plan.html">계획 만들기</a>
+    <a class="nav-link" href="list.html">내 여행 계획</a>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidenav">
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
+    </aside>
+
+    <main>
+      <h1>계획 만들기</h1>
+
+      <p id="limit-note" class="note" hidden></p>
+
+      <form id="plan-form" novalidate>
+        <fieldset>
+          <legend>여행할 도시</legend>
+          <label class="radio-option"><input type="radio" name="city" value="gangneung"> 강릉</label>
+          <label class="radio-option"><input type="radio" name="city" value="gyeongju"> 경주</label>
+          <label class="radio-option"><input type="radio" name="city" value="andong"> 안동</label>
+          <label class="radio-option"><input type="radio" name="city" value="yeosu"> 여수</label>
+        </fieldset>
+
+        <div class="field">
+          <label for="wish">희망사항</label>
+          <textarea id="wish" name="wish" rows="4" maxlength="500"
+            placeholder="예: 부모님과 조용히 쉬면서 유적도 보고 싶어요"></textarea>
+        </div>
+
+        <button type="submit" class="btn" id="generate-btn">계획 만들기</button>
+      </form>
+
+      <div id="loading" class="loading-overlay" hidden>
+        <div class="loading-box">
+           <div class="spinner"></div>
+              <p id="loading-text">여행 계획을 만드는 중입니다…</p>
+          </div>
+      </div>
+
+      <div id="alert" class="alert" role="alert" hidden>
+        <h2 id="alert-title"></h2>
+        <p id="alert-message"></p>
+      </div>
+
+      <section id="result" hidden>
+        <p id="result-summary" class="card"></p>
+        <div id="result-places" class="place-grid"></div>
+        <p id="save-warning" class="note" hidden></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/nav.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/plan.js"></script>
+</body>
+</html>

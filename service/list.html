@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>내 여행 계획 — 나만의 국내여행 플래너</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+  <img class="bg-decoration bg-decoration-left" src="images/hero1.png" alt=""
+    width="2544" height="1904" loading="lazy">
+  <img class="bg-decoration bg-decoration-right" src="images/hero2.png" alt=""
+    width="2544" height="1904" loading="lazy">
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="images/logo.png" alt="" width="2048" height="2048" loading="lazy">
+      나만의 국내여행 플래너
+    </a>
+    <button id="theme-toggle" type="button" class="nav-btn">배색 전환</button>
+    <button id="menu-toggle" type="button" class="nav-btn"
+      aria-expanded="false" aria-controls="mobile-menu">메뉴</button>
+    <nav class="topnav-links">
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
+    </nav>
+  </header>
+
+  <nav id="mobile-menu" class="mobile-menu" hidden>
+    <a class="nav-link" href="index.html">소개</a>
+    <a class="nav-link" href="plan.html">계획 만들기</a>
+    <a class="nav-link" href="list.html">내 여행 계획</a>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidenav">
+      <a class="nav-link" href="index.html">소개</a>
+      <a class="nav-link" href="plan.html">계획 만들기</a>
+      <a class="nav-link" href="list.html">내 여행 계획</a>
+    </aside>
+
+    <main>
+      <h1>내 여행 계획</h1>
+
+      <p id="empty-note" class="note" hidden>
+        아직 만든 계획이 없어요. <a href="plan.html">계획을 만들어 보세요.</a>
+      </p>
+
+      <ul id="plan-list" class="plan-list"></ul>
+    </main>
+  </div>
+
+  <script src="js/nav.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/list.js"></script>
+</body>
+</html>

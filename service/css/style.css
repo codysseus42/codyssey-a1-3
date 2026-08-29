@@ -9,6 +9,10 @@
   --accent-hover: #2557c7;
   --accent-active: #1e4699;
   --focus-ring: #2f6fed;
+  --danger: #b3261e;
+  --danger-bg: #fdecea;
+  --danger-border: #f3c2bd;
+  --overlay: rgb(0 0 0 / 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,7 +27,46 @@
     --accent-hover: #7ba0ff;
     --accent-active: #9db8ff;
     --focus-ring: #7ba0ff;
+    --danger: #ff8a80;
+    --danger-bg: #3a1f1d;
+    --danger-border: #5c2e2a;
+    --overlay: rgb(0 0 0 / 0.7);
   }
+}
+
+/* 수동 배색 토글: 시스템 설정보다 우선한다 */
+:root[data-theme="dark"] {
+  --bg: #16181c;
+  --fg: #e8e8e8;
+  --bg-elevated: #1e2126;
+  --border: #33363c;
+  --muted-fg: #a3a3ab;
+  --accent: #5b8dff;
+  --accent-fg: #0b0d10;
+  --accent-hover: #7ba0ff;
+  --accent-active: #9db8ff;
+  --focus-ring: #7ba0ff;
+  --danger: #ff8a80;
+  --danger-bg: #3a1f1d;
+  --danger-border: #5c2e2a;
+  --overlay: rgb(0 0 0 / 0.7);
+}
+
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --bg-elevated: #f5f5f7;
+  --border: #dcdce0;
+  --muted-fg: #5b5b63;
+  --accent: #2f6fed;
+  --accent-fg: #ffffff;
+  --accent-hover: #2557c7;
+  --accent-active: #1e4699;
+  --focus-ring: #2f6fed;
+  --danger: #b3261e;
+  --danger-bg: #fdecea;
+  --danger-border: #f3c2bd;
+  --overlay: rgb(0 0 0 / 0.5);
 }
 
 * {
@@ -59,80 +102,141 @@ a:active {
   color: var(--accent-active);
 }
 
-/* 상단 네비게이션 */
-.topnav {
+/* 상단 바 (서비스 제목 + 배색 토글 + 폭별 네비게이션) */
+.topbar {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
   background: var(--bg-elevated);
 }
 
-.topnav .brand {
+.topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
   font-weight: 700;
   margin-right: auto;
   text-decoration: none;
   color: var(--fg);
 }
 
-.topnav nav {
-  display: flex;
-  gap: 1.25rem;
+.brand-logo {
+  height: 1.75rem;
+  width: auto;
 }
 
-.topnav a {
+.nav-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  border-radius: .5rem;
+  padding: .5rem .9rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: var(--bg-elevated);
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.nav-btn:active {
+  background: var(--border);
+}
+
+.nav-link {
   text-decoration: none;
 }
 
+.nav-link[aria-current="page"] {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.topnav-links {
+  display: none;
+  gap: 1.25rem;
+}
+
+/* 600px 미만 기본값: 햄버거 버튼 + 접이식 메뉴 */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .75rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.mobile-menu[hidden] {
+  display: none;
+}
+
 /* 본문 레이아웃 (사이드 네비게이션 + 메인) */
+/* 600px 미만 기본값: 1컬럼 */
 .layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
 .sidenav {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: .75rem;
 }
 
-.sidenav a {
-  text-decoration: none;
+.sidenav .nav-link {
   padding: .5rem .75rem;
   border-radius: .5rem;
 }
 
-.sidenav a:hover {
+.sidenav .nav-link:hover {
   background: var(--bg-elevated);
 }
 
-.topnav a[aria-current="page"],
-.sidenav a[aria-current="page"] {
-  color: var(--fg);
-  font-weight: 700;
+.sidenav .nav-link[aria-current="page"] {
   background: var(--bg-elevated);
 }
 
-@media (max-width: 720px) {
-  .layout {
-    grid-template-columns: 1fr;
+/* 600px 이상: 햄버거 대신 가로 네비게이션 */
+@media (min-width: 600px) {
+  #menu-toggle {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none !important;
+  }
+
+  .topnav-links {
+    display: flex;
+  }
+}
+
+/* 1000px 이상: 가로 네비게이션 대신 사이드 네비게이션 */
+@media (min-width: 1000px) {
+  .topnav-links {
+    display: none;
   }
 
   .sidenav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1rem;
+    display: flex;
   }
 
-  .topnav {
-    flex-wrap: wrap;
-    gap: .75rem;
+  .layout {
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
   }
 }
 
@@ -165,9 +269,16 @@ a:active {
 
 /* 소개 화면 섹션 */
 .hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
   padding: 2rem 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 2rem;
+}
+
+.hero-content {
+  flex: 1;
 }
 
 .hero h1 {
@@ -179,6 +290,45 @@ a:active {
   color: var(--muted-fg);
   font-size: 1.1rem;
   margin: 0 0 1.5rem;
+}
+
+.hero-logo {
+  flex-shrink: 0;
+  width: 9rem;
+  height: 9rem;
+  opacity: .92;
+}
+
+@media (max-width: 600px) {
+  .hero-logo {
+    display: none;
+  }
+}
+
+/* 페이지 좌우 여백의 배경 장식 (1400px 이상에서만 표시) */
+/* .layout의 max-width(1100px)로 생기는 여백을 최대한 덮도록 폭을 뷰포트에 맞춰 계산 */
+.bg-decoration {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: calc((100vw - 1100px) / 2 - 20px);
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.bg-decoration-left {
+  left: 0;
+}
+
+.bg-decoration-right {
+  right: 0;
+}
+
+@media (min-width: 1400px) {
+  .bg-decoration {
+    display: block;
+  }
 }
 
 section {
@@ -230,4 +380,204 @@ section h2 {
 .note {
   color: var(--muted-fg);
   font-size: .95rem;
+}
+
+/* 계획 만들기 화면: 폼 */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+legend {
+  font-weight: 700;
+  margin-bottom: .5rem;
+  padding: 0;
+}
+
+.radio-option {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin: 0 1rem .5rem 0;
+  cursor: pointer;
+}
+
+.radio-option input {
+  accent-color: var(--accent);
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+textarea {
+  width: 100%;
+  padding: .75rem;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  resize: vertical;
+}
+
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* 계획 만들기 화면: 로딩/알림 */
+#loading {
+  color: var(--muted-fg);
+}
+
+.alert {
+  border: 1px solid var(--danger-border);
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-radius: .5rem;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+
+.alert h2 {
+  margin: 0 0 .25rem;
+  font-size: 1.05rem;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--overlay);
+  z-index: 100;
+}
+
+.loading-overlay[hidden] { display: none; }
+
+.loading-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  max-width: 20rem;
+}
+
+/* 계획 만들기 화면: 결과 카드 */
+.place-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.place-order {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-radius: 999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  text-align: center;
+  font-size: .85rem;
+  margin-bottom: .5rem;
+}
+
+.place-meta {
+  color: var(--muted-fg);
+  font-size: .9rem;
+  margin: 0 0 .5rem;
+}
+
+.place-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: .5rem;
+  margin: .5rem 0;
+}
+
+/* 내 여행 계획 화면 */
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+}
+
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  margin-bottom: .75rem;
+  padding: .25rem;
+}
+
+.plan-item-link {
+  flex: 1;
+  padding: .75rem;
+  border-radius: .5rem;
+  text-decoration: none;
+}
+
+.plan-item-link:hover {
+  background: var(--bg-elevated);
+}
+
+.plan-item-delete {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--danger);
+  border-radius: .5rem;
+  padding: .5rem .9rem;
+  cursor: pointer;
+  font: inherit;
+  margin-right: .5rem;
+}
+
+.plan-item-delete:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+}
+
+.plan-item-delete:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.plan-item-delete:active {
+  background: var(--danger-bg);
 }

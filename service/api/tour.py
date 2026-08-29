@@ -72,6 +72,7 @@ def _request_items(api_key, content_type_id, num_of_rows, city, deadline):
         timeout = min(CALL_TIMEOUT, remaining)
         try:
             resp = requests.get(BASE_URL, params=params, timeout=timeout)
+            print(resp.json())
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             continue
         except requests.exceptions.RequestException:
