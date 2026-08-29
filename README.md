@@ -401,7 +401,7 @@ Gemini API가 인증 실패를 401이 아니라 **400 + `INVALID_ARGUMENT`**로 
 | README — 배포 URL | 문서 상단 |
 | README — 실행 방법 | [로컬 실행 방법](#로컬-실행-방법) |
 | README — 환경 변수 | [환경 변수](#환경-변수) |
-| 스크린샷 증빙 | 본문 전반 · `readImage/` |
+| 스크린샷 증빙 | 본문 전반 · `./readImage` |
 | AI 코딩 도구 사용 증빙 | [AI 코딩 도구 사용](#ai-코딩-도구-사용) · [AI_CODING_LOG.md](./AI_CODING_LOG.md) · [대화 원문](./docs/evidence/AI_CODING_TRANSCRIPT.md) |
 | 서비스 기획서 | [SERVICE_PLAN.md](./service_plan.md) |
 
