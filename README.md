@@ -150,9 +150,8 @@ javascript단에서 경고
 ```
 codyssey-a1-3/
 ├── README.md
-├── SERVICE_PLAN.md            서비스 기획서
-├── ARCHITECTURE.md            구현 사양
-├── DECISIONS.md               설계 판단 기록
+├── service_plan.md            서비스 기획서
+├── architecture.md            구현 사양
 ├── AI_CODING_LOG.md           AI 코딩 도구 사용 기록
 ├── CLAUDE.md                  AI 코딩 도구 상시 규칙
 ├── readImage/                 증빙 스크린샷
