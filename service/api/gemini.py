@@ -69,7 +69,6 @@ def _call_model(prompt, api_key, model, valid_ns, deadline):
     }
     try:
         resp = requests.post(url, headers=headers, json=body, timeout=timeout)
-        print(resp.json)
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
         return None, ERR_NETWORK, True
     except requests.exceptions.RequestException:
@@ -82,6 +81,11 @@ def _call_model(prompt, api_key, model, valid_ns, deadline):
     if resp.status_code in (401, 403):
         return None, ERR_AUTH, False
     if resp.status_code == 400:
+        try:
+            message = resp.json().get("error", {}).get("message")
+        except ValueError:
+            message = None
+        print(f"[gemini] request_invalid message={message}")
         return None, ERR_REQUEST_INVALID, False
     if resp.status_code == 404:
         return None, ERR_MODEL_NOT_FOUND, False

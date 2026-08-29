@@ -241,3 +241,14 @@ if _API_DIR not in sys.path:
   범위(스펙상 4~7개)이며 버그 아님.
 - 커밋 이력 없음(모든 변경 사항은 작업 트리에만 존재, `CLAUDE.md` 규칙에
   따라 커밋하지 않음).
+
+### 9. `service/api/gemini.py` 로그 수정
+
+사용자가 `_call_model`에 디버그용 `print(resp.json)`(괄호 누락으로 메서드
+객체 자체를 찍는 버그)을 직접 추가해 둔 상태였음. 지시에 따라:
+- 매 호출마다 무조건 찍히던 `print(resp.json)`을 제거.
+- 400(`ERR_REQUEST_INVALID`) 응답에서만, 응답 전체가 아니라
+  `error.message` 하나만 추출해 `print(f"[gemini] request_invalid
+  message={message}")`로 남기도록 수정. JSON 파싱 실패 시 `message`는
+  `None`으로 남김(추가 예외 전파 없음).
+- `python3 -m py_compile gemini.py`로 문법 확인. 커밋하지 않음.
