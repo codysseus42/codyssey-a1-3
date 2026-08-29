@@ -166,3 +166,78 @@
 이로써 `architecture.md` 스펙의 백엔드 4개 파일(`cities.py`, `tour.py`,
 `gemini.py`, `plan.py`)이 모두 작성됨. 프론트엔드(`index.html`, `plan.html`,
 `list.html`, `css/`, `js/`)는 아직 미작성.
+
+### 6. `service/index.html` + `service/css/style.css` 작성 (Plan mode → 승인 → 구현)
+
+세 화면 중 소개 화면과, 세 화면이 공유할 공통 스타일시트를 작성함.
+`service_plan.md`(기획서)의 문제 정의·대상 사용자·화면 구성·사용 방법을
+반영. `plan.html`/`list.html`은 아직 없으므로 그 화면 전용 스타일(폼,
+목록 카드 등)은 넣지 않고 색상 변수·네비게이션·버튼 상태 등 공통 기반만
+작성.
+
+- `style.css`: 8-6절 그대로 `--bg`/`--fg` 라이트·다크 기본값 정의 + 버튼/
+  링크/카드용 추가 변수(`--accent`, `--border`, `--muted-fg` 등)를 같은
+  패턴으로 확장. 색상 리터럴이 `:root`/`@media` 블록 밖에 없는지
+  `grep -nE '#[0-9a-fA-F]{3,6}'`로 확인함(전부 변수 선언부에만 존재).
+  링크·버튼에 hover/focus-visible/active 세 상태 모두 정의.
+  `720px` 기준으로 사이드 네비게이션이 2컬럼(데스크톱/태블릿) ↔ 가로
+  줄바꿈(모바일)으로 전환되는 반응형 레이아웃.
+- `index.html`: 상단 네비게이션(가로)과 사이드 네비게이션(세로) 양쪽에
+  소개/계획 만들기/내 여행 계획 세 링크(8-1절), 현재 페이지는
+  `aria-current="page"`로 표시. 히어로 + 소개(문제/대상 사용자) + 화면
+  구성(설계 재소개) + 사용 방법(6단계 + 하루 생성 횟수 제한 안내) 섹션.
+  "시작하기"는 `<a href="plan.html">`로 JS 없이 이동(index 전용 JS 파일
+  없음 — 2절 디렉토리 구조와 일치).
+- `python3 -m html.parser`로 HTML 파싱 검증. 커밋하지 않음.
+- 참고: 세션 시작 시점에 `service/index.html`과 `service/api/hello.py`가
+  이미 작업 트리에서 삭제된 상태였음(직전 커밋엔 있었음, 내가 지운 게
+  아님). 삭제 전 `index.html`은 실제 소개 콘텐츠가 아니라 배포 확인용
+  임시 페이지(`<h1>배포 확인</h1>`, `/api/hello` 호출 버튼)였음 — 이번
+  작업으로 실제 소개 콘텐츠로 대체되며 git 상태가 "삭제됨"에서
+  "수정됨"으로 정상화됨.
+
+### 7. `service/api/plan.py` — sys.path 자기 보강 (Plan mode → 승인 → 구현)
+
+배포 환경(Vercel)에서 `plan.py`가 `cities`/`tour`/`gemini` 형제 모듈을
+import하지 못할 위험을 막기 위해, 사용자 지시대로 다른 import보다 먼저
+자기 디렉토리(`os.path.dirname(__file__)`)를 `sys.path`에 추가하되 이미
+있으면 중복 추가하지 않도록 수정.
+
+```python
+import os
+import sys
+
+_API_DIR = os.path.dirname(__file__)
+if _API_DIR not in sys.path:
+    sys.path.insert(0, _API_DIR)
+```
+
+기존에 3번째 줄에 있던 `import os`를 맨 위로 옮기고 `import sys`를 추가,
+나머지 import(`http.server`, `json`, `time`, `dotenv`, `cities`, `tour`,
+`gemini`)는 그 뒤로 유지.
+
+**회귀 테스트**: 로컬 `HTTPServer`로 다시 구동해 `sys.path`에 `api` 디렉토리가
+정확히 1번만 등장하는지(중복 방지 확인) + 정상 케이스(경주, 200, `places`
+5건)와 `bad_request` 케이스(400) 모두 이전과 동일하게 통과함을 확인. 테스트
+스크립트는 스크래치패드에서 실행 후 삭제. 커밋하지 않음.
+
+### 8. 로그 점검(사용자 요청) — 누락분 보완
+
+사용자가 "방금 대화를 포함해서 로그에 놓친 게 없는지" 확인을 요청해 4~7번
+항목을 다시 검토하고 다음을 보완함:
+- 6번 항목에 `index.html`/`hello.py`가 세션 시작 전부터 이미 삭제된 상태였다는
+  맥락(배포 확인용 임시 페이지였음)을 추가.
+- 아래에 파일별 현재 진행 상황을 정리해 추가.
+
+**현재 진행 상황 (2026-08-29 기준)**
+- 백엔드: `cities.py`, `tour.py`, `gemini.py`, `plan.py`(sys.path 보강 포함)
+  모두 작성 완료, 각각 실호출/회귀 테스트 통과.
+- 프론트엔드: `index.html` + `css/style.css` 작성 완료. `plan.html`,
+  `list.html`, `js/storage.js`, `js/plan.js`, `js/list.js`는 아직 미작성.
+  `images/` 디렉토리는 비어 있음.
+- 참고: 4번(`gemini.py` 단독 테스트, "picks 4건")과 5번(`plan.py` 통합
+  테스트, "places 5건")은 같은 도시·비슷한 희망사항으로 각각 별도로 실행한
+  테스트라 AI 응답이 달라 선정 개수 차이(4개 vs 5개)가 남 — 둘 다 정상
+  범위(스펙상 4~7개)이며 버그 아님.
+- 커밋 이력 없음(모든 변경 사항은 작업 트리에만 존재, `CLAUDE.md` 규칙에
+  따라 커밋하지 않음).

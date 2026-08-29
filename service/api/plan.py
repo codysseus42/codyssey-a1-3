@@ -1,6 +1,12 @@
+import os
+import sys
+
+_API_DIR = os.path.dirname(__file__)
+if _API_DIR not in sys.path:
+    sys.path.insert(0, _API_DIR)
+
 from http.server import BaseHTTPRequestHandler
 import json
-import os
 import time
 
 from dotenv import load_dotenv
