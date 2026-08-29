@@ -85,6 +85,9 @@ def _call_model(prompt, api_key, model, valid_ns, deadline):
             message = resp.json().get("error", {}).get("message")
         except ValueError:
             message = None
+        if isinstance(message, str) and "API key not valid" in message:
+            print(f"[gemini] auth_error message={message}")
+            return None, ERR_AUTH, False
         print(f"[gemini] request_invalid message={message}")
         return None, ERR_REQUEST_INVALID, False
     if resp.status_code == 404:
