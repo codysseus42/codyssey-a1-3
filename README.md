@@ -292,10 +292,10 @@ GitHub 저장소를 Vercel에 연결하고 `main` 브랜치에 push하면 자동
 
 | 문서 | 내용 |
 |---|---|
-| [SERVICE_PLAN.md](SERVICE_PLAN.md) | 서비스 기획서 — 목적, 대상 사용자, 화면 구성, AI 기능 명세(입력/출력/실패 처리) |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 구현 사양 — API 계약, 외부 API 호출 규칙, 검증 순서, 시간 예산 |
-| [AI_CODING_LOG.md](AI_CODING_LOG.md) | AI 코딩 도구 사용 기록 |
-| [CLAUDE.md](CLAUDE.md) | AI 코딩 도구 상시 규칙 |
+| [SERVICE_PLAN.md](./service_plan.md) | 서비스 기획서 — 목적, 대상 사용자, 화면 구성, AI 기능 명세(입력/출력/실패 처리) |
+| [ARCHITECTURE.md](./architecture.md) | 구현 사양 — API 계약, 외부 API 호출 규칙, 검증 순서, 시간 예산 |
+| [AI_CODING_LOG.md](./AI_CODING_LOG.md) | AI 코딩 도구 사용 기록 |
+| [CLAUDE.md](./CLAUDE.md) | AI 코딩 도구 상시 규칙 |
 
 ---
 
@@ -303,8 +303,8 @@ GitHub 저장소를 Vercel에 연결하고 `main` 브랜치에 push하면 자동
 
 Claude Code를 사용했다. 구현 사양(`ARCHITECTURE.md`)을 먼저 확정하고, 파일 단위로 계획을 검토·승인한 뒤 작성하는 방식으로 진행했다.
 
-- 작업 기록 — [AI_CODING_LOG.md](AI_CODING_LOG.md)
-- 대화 원문 — [docs/evidence/AI_CODING_TRANSCRIPT.md](docs/evidence/AI_CODING_TRANSCRIPT.md)
+- 작업 기록 — [AI_CODING_LOG.md](./AI_CODING_LOG.md)
+- 대화 원문 — [docs/evidence/AI_CODING_TRANSCRIPT.md](./docs/evidence/AI_CODING_TRANSCRIPT.md)
 
 ![Claude Code 작업 화면](./readImage/01editClaudeCode.png)
 
@@ -338,11 +338,11 @@ Gemini API가 인증 실패를 401이 아니라 **400 + `INVALID_ARGUMENT`**로 
 
 | 평가 항목 | 대응 위치 |
 |---|---|
-| 목적 정의 | [무엇을 해결하는가](#무엇을-해결하는가) · [SERVICE_PLAN.md](SERVICE_PLAN.md) |
-| 타겟 사용자 정의 | [대상 사용자](#대상-사용자) · [SERVICE_PLAN.md](SERVICE_PLAN.md) |
+| 목적 정의 | [무엇을 해결하는가](#무엇을-해결하는가) · [SERVICE_PLAN.md](./service_plan.md) |
+| 타겟 사용자 정의 | [대상 사용자](#대상-사용자) · [SERVICE_PLAN.md](./service_plan.md) |
 | 페이지/섹션 3개 이상 설계 | [화면 구성](#화면-구성) — 소개 / 계획 만들기 / 내 여행 계획 |
 | 메뉴 이동 방식 | [반응형](#반응형) — 폭에 따라 사이드·가로·햄버거 |
-| AI 기능 1개 이상 정의(입력/출력/가치) | [AI 기능](#ai-기능) · [SERVICE_PLAN.md](SERVICE_PLAN.md) |
+| AI 기능 1개 이상 정의(입력/출력/가치) | [AI 기능](#ai-기능) · [SERVICE_PLAN.md](service_plan.md) |
 
 ### 2. 프로젝트 초기화 및 구조 구성
 
@@ -382,7 +382,7 @@ Gemini API가 인증 실패를 401이 아니라 **400 + `INVALID_ARGUMENT`**로 
 | 평가 항목 | 대응 위치 |
 |---|---|
 | `api/`에 Python 함수 구현 | [프로젝트 구조](#프로젝트-구조) — `api/plan.py` |
-| AI API 호출 후 결과 반환 | [데이터 흐름](#데이터-흐름) · [ARCHITECTURE.md](ARCHITECTURE.md) 5절 |
+| AI API 호출 후 결과 반환 | [데이터 흐름](#데이터-흐름) · [ARCHITECTURE.md](./architecture.md) 5절 |
 | `requirements.txt` 정의 | [프로젝트 구조](#프로젝트-구조) |
 | 프론트에서 `fetch('/api/...')` 호출 | [데이터 흐름](#데이터-흐름) — `POST /api/plan` |
 
@@ -404,8 +404,8 @@ Gemini API가 인증 실패를 401이 아니라 **400 + `INVALID_ARGUMENT`**로 
 | README — 실행 방법 | [로컬 실행 방법](#로컬-실행-방법) |
 | README — 환경 변수 | [환경 변수](#환경-변수) |
 | 스크린샷 증빙 | 본문 전반 · `readImage/` |
-| AI 코딩 도구 사용 증빙 | [AI 코딩 도구 사용](#ai-코딩-도구-사용) · [AI_CODING_LOG.md](AI_CODING_LOG.md) · [대화 원문](docs/evidence/AI_CODING_TRANSCRIPT.md) |
-| 서비스 기획서 | [SERVICE_PLAN.md](SERVICE_PLAN.md) |
+| AI 코딩 도구 사용 증빙 | [AI 코딩 도구 사용](#ai-코딩-도구-사용) · [AI_CODING_LOG.md](./AI_CODING_LOG.md) · [대화 원문](./docs/evidence/AI_CODING_TRANSCRIPT.md) |
+| 서비스 기획서 | [SERVICE_PLAN.md](./service_plan.md) |
 
 ---
 
@@ -417,9 +417,9 @@ Gemini API가 인증 실패를 401이 아니라 **400 + `INVALID_ARGUMENT`**로 
 | 백엔드는 Vercel Serverless Functions(Python), `api/` 폴더 | `api/plan.py`를 진입점으로 하는 Python 함수 | [프로젝트 구조](#프로젝트-구조) |
 | AI 기능 1개 이상 포함 | 후보 장소 선별·순서 배치·이유 생성 | [AI 기능](#ai-기능) |
 | API 키를 코드에 직접 작성하지 않고 환경 변수로 관리 | 4개 값을 `.env` / Vercel 환경 변수로 주입. `.env`는 저장소에 올리지 않으며 `.env.example`에는 이름만 남김 | [환경 변수](#환경-변수) |
-| 제출물에 키가 노출되지 않도록 주의 | 로그·오류 메시지에 요청 URL 전문과 키를 남기지 않음. 대화 원문도 커밋 전 검사 | [환경 변수](#환경-변수) · [ARCHITECTURE.md](ARCHITECTURE.md) 9절 |
+| 제출물에 키가 노출되지 않도록 주의 | 로그·오류 메시지에 요청 URL 전문과 키를 남기지 않음. 대화 원문도 커밋 전 검사 | [환경 변수](#환경-변수) · [ARCHITECTURE.md](./architecture.md) 9절 |
 | AI API는 과금/쿼터가 발생할 수 있음을 인지하고, 호출 빈도와 실패 상황을 고려 | 하루 생성 횟수 제한, 실패한 요청은 차감하지 않음. 필수값 미입력은 네트워크 요청 전에 차단. 대체 모델은 일시적 과부하로 판단될 때만 1회 시도 | [실패 처리](#실패-처리) |
-| 템플릿·예시를 그대로 복제하지 않음 | 아이디어·문구·화면 구성을 직접 설계 | [무엇을 해결하는가](#무엇을-해결하는가) · [SERVICE_PLAN.md](SERVICE_PLAN.md) |
+| 템플릿·예시를 그대로 복제하지 않음 | 아이디어·문구·화면 구성을 직접 설계 | [무엇을 해결하는가](#무엇을-해결하는가) · [SERVICE_PLAN.md](./service_plan.md) |
 
 ### 보너스
 
