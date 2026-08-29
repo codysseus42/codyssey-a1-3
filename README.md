@@ -11,14 +11,20 @@ https://codyssey-a1-3-j2yrdm120-codyssey3.vercel.app/index.html
 ![nosite](./readImage/04nosite.png)
 ![noplan](./readImage/05noplan.png)
 ![list](./readImage/06list.png)
-![darkmode](./readImage/08darkmode.png)
+
 ![requestapply](./readImage/10requestapply.png)
 ![11mobileresult](./readImage/11mobileresult.png)
 요구사항 반영을 설명해라
+
+여기서 부터는 그냥 나열하면 된다.
 ![mobileindex](./readImage/09mobileindex.png)
 ![requestapply](./readImage/10requestapply.png)
 ![11mobileresult](./readImage/11mobileresult.png)
 ![mobilelist](./readImage/12mobilelist.png)
 ![mobileempty](./readImage/13mobileempty.png)
+
+Bonus쪽에 넣어라
+코드 구현방법 간단하게 설명해놓고
+![darkmode](./readImage/08darkmode.png)
 ![mobiledark](./readImage/14mobiledark.png)
 
