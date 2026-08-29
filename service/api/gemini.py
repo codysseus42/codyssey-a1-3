@@ -69,6 +69,7 @@ def _call_model(prompt, api_key, model, valid_ns, deadline):
     }
     try:
         resp = requests.post(url, headers=headers, json=body, timeout=timeout)
+        print(resp.json)
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
         return None, ERR_NETWORK, True
     except requests.exceptions.RequestException:
